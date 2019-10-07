@@ -6,5 +6,5 @@ The ones in this branch are as follows:
 
 -DFS:
 
-  The problem is to find the food in a laberinth, the objective is to do a DFS and trace the shortest path to an indicated point 
+  The problem is to find the food in a laberinth, the objective is to do a DFS and trace a path to an indicated point 
   "F".
