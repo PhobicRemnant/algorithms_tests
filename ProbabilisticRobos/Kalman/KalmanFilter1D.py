@@ -56,7 +56,7 @@ x_filtered = np.zeros(time.shape)
 
 # Define initial variables
 x0 = 0.0    # Initial Position
-v0 = 1   # Initial Velocity
+v0 = 0.2   # Initial Velocity
 a0 = 0.0    # Initial Acceleration
 
 # Init positions and velocities
@@ -73,14 +73,14 @@ B = np.array([ [(dt**2)/2], [dt] ])
 # Matrix C - Meassurement matrix
 C = np.array([1,0])
 # Q matrix - covariance matrix
-sigma_model_x = 0.035    # Position model error variance
-sigma_modal_v = 0.035    # Velocity model error variance
+sigma_model_x = 0.05    # Position model error variance
+sigma_modal_v = 0.05    # Velocity model error variance
 Q = np.array([[ sigma_model_x**2, 0],[0,sigma_modal_v**2 ]])
 
 # P matrix - initial process covariance matrix
 P = np.eye(2)
 # R matrix - meassurement covariance 
-sigma_meas = 0.23
+sigma_meas = 0.1
 R = sigma_meas**2
 
 # Control vector
@@ -101,8 +101,11 @@ for i in range(1,iterations):
     x_est,P = LinKalmanFilter(A,B,C,P,Q,z,u,x_est)
     x_filtered[i] = x_est[0]
 
-plt.plot(x_pred[0:len(x_pred):40],'r--', x_meassured[0:len(x_meassured):40], 'bs',x_filtered[0:len(x_filtered):40],'g^')
+plt.plot(x_pred[0:len(x_pred):40],'r--', label = 'Predicted value')
+plt.plot(x_meassured[0:len(x_meassured):40], 'bs', label = 'Meassurement')
+plt.plot(x_filtered[0:len(x_filtered):40],'g^', label = 'Filtered value')
 plt.title("Linear Kalman Filter")
 plt.ylabel("Position(m)")
 plt.xlabel("Time(s)")
+plt.legend()
 plt.show()
